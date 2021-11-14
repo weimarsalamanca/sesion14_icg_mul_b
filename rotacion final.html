@@ -1,0 +1,61 @@
+<canvas id='canvas' width=650 height=650>
+    <script>
+        function centroGeom(coordenada) {
+            tr = [0, 0]
+
+    
+
+           tr = [0, 0]
+            veiX=coordenada[0], vesX=coordenada[0]  //velores extremos inferiores y superiores
+            veiY=coordenada[1], vesY=coordenada[1]  
+
+            for (i = 2; i < coordenada.length; i+=2){
+                if(veiX > coordenada[i]){
+                   veiX = coordenada[i];
+                }if(vesX < coordenada[i]){
+                   vesX = coordenada[i];
+            }}
+
+            for (i = 2; i < coordenada.length; i+=2){
+                if(veiY > coordenada[i]){
+                   veiY = coordenada[i];
+                }if(vesY < coordenada[i]){
+                   vesY = coordenada[i];
+            }}
+            
+            promX=-(vesX+veiX)/2;
+            promY=-(vesY+veiY)/2;
+            tr = [promX, promY]
+            return tr;
+        }
+
+        function polygon(a, colorBorde, colorRelleno) {
+            ctx.beginPath()
+            ctx.strokeStyle = colorBorde
+            ctx.fillStyle = colorRelleno
+            ctx.moveTo(a[0], a[1])
+            for (var i = 2; i < a.length; i += 2)
+                ctx.lineTo(a[i], a[i + 1]);
+            ctx.closePath()
+            ctx.stroke()
+            ctx.fill()
+        }
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+    
+        var coord = [68,24, 68, 40, 48, 40, 48, 34, 46, 30, 34,30, 32,34, 32, 42, 34, 45, 57, 45, 68, 58, 68, 81, 57, 93, 22, 93, 13, 81, 13, 68, 30, 68, 30, 73, 34, 76, 45, 76, 48, 74, 48, 64, 45, 63, 23,63, 11, 50, 11, 25, 23, 13, 55, 13];
+
+
+        polygon(coord, 'yellow', 'red');
+
+        vt = centroGeom(coord);    
+        ctx.translate(-vt[0], -vt[1]);   
+
+        ctx.rotate(-4/48*Math.PI)  
+
+        ctx.translate(vt[0], vt[1]);   
+
+        polygon(coord, 'red', 'yellow');
+
+    </script>
